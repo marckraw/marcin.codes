@@ -65,7 +65,8 @@ const Layout = props => {
       <footer>
         © {new Date().getFullYear()}, Built with
         {` `}
-        <a href="https://www.gatsbyjs.org">Gatsby</a>
+        <a href="https://www.gatsbyjs.org">Gatsby</a> and{" "}
+        <a href="https://www.storyblok.com">Storyblok</a>
       </footer>
     </div>
   )

@@ -40,6 +40,7 @@ class StoryblokEntry extends React.Component {
       story,
       settings,
       location: this.props.location,
+      pageContext: this.props.pageContext,
     })
   }
 }

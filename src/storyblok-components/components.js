@@ -1,10 +1,12 @@
 import ComponentNotFound from "./component-not-found"
 import Page from "./Page/Page"
 import Text from "./Text/Text"
+import SimpleBlogPost from "./content-types/SimpleBlogPost/SimpleBlogPost"
 
 const ComponentList = {
   page: Page,
   text: Text,
+  "simple-blog-post": SimpleBlogPost,
 }
 
 const Components = type => {

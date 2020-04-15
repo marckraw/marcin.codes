@@ -40,6 +40,9 @@ const createStoryblokPages = async (graphql, createPage) => {
       if (result.data.stories.edges.length === 1) {
         settings = result.data.stories.edges[0].node
       }
+
+      // TODO: Divide creating /posts/ pages from normal pages
+      // stories: allStoryblokEntry(filter: {field_component: {ne: "simple-blog-post"}, slug:{ne:"settings"}}) {
       resolve(
         graphql(
           `
@@ -71,7 +74,11 @@ const createStoryblokPages = async (graphql, createPage) => {
           }
 
           const entries = result.data.stories.edges
-          entries.forEach(entry => {
+          entries.forEach((entry, index) => {
+            const previous =
+              index === entries.length - 1 ? null : entries[index + 1].node
+            const next = index === 0 ? null : entries[index - 1].node
+
             const pagePath =
               entry.node.full_slug === "home" ? "" : `${entry.node.full_slug}`
 
@@ -81,6 +88,8 @@ const createStoryblokPages = async (graphql, createPage) => {
               context: {
                 settings: settings,
                 story: entry.node,
+                previous,
+                next,
               },
             })
           })
