@@ -5,6 +5,8 @@
   "version": "0.1.0",
   "author": "Marcin Krawczyk <marckraw@icloud.com>",
   "dependencies": {
+    "bulma": "^0.8.2",
+    "component-fade-plugin-react-consumer": "^0.0.14",
     "core-js": "^2.6.11",
     "gatsby": "^2.18.18",
     "gatsby-image": "^2.2.37",
@@ -28,6 +30,7 @@
     "gatsby-transformer-remark": "^2.6.45",
     "gatsby-transformer-sharp": "^2.3.9",
     "lodash": "^4.17.15",
+    "node-sass": "^4.13.1",
     "prismjs": "^1.18.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
