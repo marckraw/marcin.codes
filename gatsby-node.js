@@ -1,9 +1,96 @@
 const path = require(`path`)
+const trim = require("lodash/trim")
 const { createFilePath } = require(`gatsby-source-filesystem`)
 
-exports.createPages = async ({ graphql, actions }) => {
-  const { createPage } = actions
+let settings = {}
 
+const createStoryblokPages = async (graphql, createPage) => {
+  return new Promise((resolve, reject) => {
+    const storyblokEntry = path.resolve("src/templates/storyblok-entry.js")
+
+    graphql(
+      `
+        {
+          stories: allStoryblokEntry(filter: { slug: { eq: "settings" } }) {
+            edges {
+              node {
+                id
+                name
+                created_at
+                published_at
+                uuid
+                slug
+                full_slug
+                field_component
+                content
+                is_startpage
+                parent_id
+                group_id
+              }
+            }
+          }
+        }
+      `
+    ).then(result => {
+      if (result.errors) {
+        console.log(result.errors)
+        reject(result.errors)
+      }
+
+      if (result.data.stories.edges.length === 1) {
+        settings = result.data.stories.edges[0].node
+      }
+      resolve(
+        graphql(
+          `
+            {
+              stories: allStoryblokEntry(filter: { slug: { ne: "settings" } }) {
+                edges {
+                  node {
+                    id
+                    name
+                    created_at
+                    published_at
+                    uuid
+                    slug
+                    field_component
+                    full_slug
+                    content
+                    is_startpage
+                    parent_id
+                    group_id
+                  }
+                }
+              }
+            }
+          `
+        ).then(result => {
+          if (result.errors) {
+            console.log(result.errors)
+            reject(result.errors)
+          }
+
+          const entries = result.data.stories.edges
+          entries.forEach(entry => {
+            const pagePath =
+              entry.node.full_slug === "home" ? "" : `${entry.node.full_slug}`
+
+            createPage({
+              path: `/${pagePath}`,
+              component: storyblokEntry,
+              context: {
+                settings: settings,
+                story: entry.node,
+              },
+            })
+          })
+        })
+      )
+    })
+  })
+}
+
+const createMarkdownPages = async (graphql, createPage) => {
   const blogPost = path.resolve(`./src/templates/blog-post.js`)
   const result = await graphql(
     `
@@ -50,6 +137,13 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 }
 
+exports.createPages = async ({ graphql, actions }) => {
+  const { createPage } = actions
+
+  await createStoryblokPages(graphql, createPage)
+  await createMarkdownPages(graphql, createPage)
+}
+
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
 
@@ -61,4 +155,12 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       value,
     })
   }
+}
+
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    node: {
+      fs: "empty",
+    },
+  })
 }

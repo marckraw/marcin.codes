@@ -1,3 +1,7 @@
+require("dotenv").config({
+  path: ".env",
+})
+
 module.exports = {
   siteMetadata: {
     title: `marcin.codes`,
@@ -10,6 +14,14 @@ module.exports = {
     },
   },
   plugins: [
+    {
+      resolve: "gatsby-source-storyblok",
+      options: {
+        accessToken: process.env.GATSBY_STORYBLOK_ACCESS_TOKEN,
+        homeSlug: "home",
+        version: process.env.NODE_ENV === "production" ? "published" : "draft",
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -80,5 +92,7 @@ module.exports = {
         pathToConfigModule: `src/utils/typography`,
       },
     },
+    `gatsby-plugin-sass`,
+    `gatsby-plugin-layout`
   ],
 }

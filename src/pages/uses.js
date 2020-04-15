@@ -9,7 +9,7 @@ const UsesPage = props => (
     <div>
       <h2>
         Here will be my update hardware and software i use, inspired by{" "}
-        <a href="https://uses.tech" target="_blank">
+        <a href="https://uses.tech" target="_blank" rel="noopener noreferrer">
           /uses
         </a>{" "}
         from Wes Bos and others.
@@ -22,6 +22,7 @@ const UsesPage = props => (
           <a
             href="https://www.keychron.com/collections/keyboard/products/keychron-mechanical-keyboard"
             target="_blank"
+            rel="noopener noreferrer"
           >
             Keychron K1 (pure awesomeness)
           </a>
