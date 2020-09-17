@@ -31,7 +31,7 @@ const createStoryblokPages = async (graphql, createPage) => {
           }
         }
       `
-    ).then(result => {
+    ).then((result) => {
       if (result.errors) {
         console.log(result.errors)
         reject(result.errors)
@@ -67,7 +67,7 @@ const createStoryblokPages = async (graphql, createPage) => {
               }
             }
           `
-        ).then(result => {
+        ).then((result) => {
           if (result.errors) {
             console.log(result.errors)
             reject(result.errors)
