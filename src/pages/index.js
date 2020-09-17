@@ -1,18 +1,15 @@
-import React from "react"
-import { Link, graphql } from "gatsby"
+import React from "react";
+import { Link, graphql } from "gatsby";
 
-import Bio from "../components/bio"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+import Bio from "../components/bio";
+import Layout from "../components/layout";
+import SEO from "../components/seo";
 
 class BlogIndex extends React.Component {
   render() {
-    const { data } = this.props
-    const siteTitle = data.site.siteMetadata.title
-    const posts = data.allStoryblokEntry.edges
-
-    console.log("tutaj data")
-    console.log(data)
+    const { data } = this.props;
+    const siteTitle = data.site.siteMetadata.title;
+    const posts = data.allStoryblokEntry.edges;
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
@@ -20,7 +17,7 @@ class BlogIndex extends React.Component {
         <Bio />
 
         {posts.map(({ node }) => {
-          const title = node.name || node.slug
+          const title = node.name || node.slug;
           return (
             <article key={node.slug} style={{ marginBottom: "32px" }}>
               <header>
@@ -33,14 +30,14 @@ class BlogIndex extends React.Component {
               </header>
               <section>{node.field_short_description_string}</section>
             </article>
-          )
+          );
         })}
       </Layout>
-    )
+    );
   }
 }
 
-export default BlogIndex
+export default BlogIndex;
 
 export const pageQuery = graphql`
   query AllStoryblokPosts {
@@ -74,7 +71,7 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
 // export const pageQuery = graphql`
 //   query {
 //     site {
