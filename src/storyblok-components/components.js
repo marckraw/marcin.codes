@@ -1,19 +1,21 @@
-import ComponentNotFound from "./component-not-found"
-import Page from "./Page/Page"
-import Text from "./Text/Text"
-import SimpleBlogPost from "./content-types/SimpleBlogPost/SimpleBlogPost"
+import ComponentNotFound from "./component-not-found";
+import Page from "./Page/Page";
+import Text from "./Text/Text";
+import SimpleBlogPost from "./content-types/SimpleBlogPost/SimpleBlogPost";
+import BlogPost from "./content-types/BlogPost";
 
 const ComponentList = {
   page: Page,
   text: Text,
   "simple-blog-post": SimpleBlogPost,
-}
+  "blog-post": BlogPost,
+};
 
-const Components = type => {
+const Components = (type) => {
   if (typeof ComponentList[type] === "undefined") {
-    return ComponentNotFound
+    return ComponentNotFound;
   }
-  return ComponentList[type]
-}
+  return ComponentList[type];
+};
 
-export default Components
+export default Components;
