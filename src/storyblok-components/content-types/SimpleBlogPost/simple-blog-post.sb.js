@@ -4,6 +4,9 @@ module.exports = {
   is_nestable: false,
   is_root: true,
   schema: {
+    title: {
+      type: "text",
+    },
     content: {
       type: "markdown",
     },
